@@ -1,0 +1,51 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-info">
+                    <h4 class="card-title ">{{ title|trans }}</h4>
+                    <div class="td-actions text-right">
+                        <button class="btn btn-warning" onclick="window.location='{{ path('admin_video_new') }}'">{{ 'Video New'|trans }}</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="text-info">
+                                <th>ID</th>
+                                <th>{{ 'Title'|trans }}</th>
+                                <th>{{ 'URL Video'|trans }}</th>
+                                <th>{{ 'Views'|trans }}</th>
+                                <th>{{ 'Actions'| trans }}</th>
+                            </thead>
+                            <tbody>
+                            {% for video in videos %}
+                                <tr>
+                                    <td>{{ video.id }}</td>
+                                    <td>{{ video.title }}</td>
+                                    <td>{{ video.url }}</td>
+                                    <td>{{ video.reproductions }}</td>
+                                    <td class="td-actions text-left">
+{#                                        <button type="button" rel="tooltip" class="btn btn-info">#}
+{#                                            <i class="material-icons">person</i>#}
+{#                                        </button>#}
+                                        <button type="button" rel="tooltip" class="btn btn-success" onclick="window.location='{{ path('admin_video_edit', { video: video.id }) }}'">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                        <button type="button" rel="tooltip" class="btn btn-danger" onclick="window.location='{{ path('admin_video_deleted', { video: video.id }) }}'">
+                                            <i class="material-icons">close</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

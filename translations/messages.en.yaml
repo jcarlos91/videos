@@ -1,3 +1,24 @@
-User: Usuarios
-User list: Lista de Usuarios
+Users: Usuarios
+User List: Lista de Usuarios
 logout: Cerrar sesión
+Name: Nombre
+Last Name: Apellido Paterno
+Mother Last Name: Apellido Materno
+Email: Correo Electrónico
+Video List: Lista de Vídeos
+Title: Titulo
+Description: Descripción
+Views: Reproducciones
+Actions: Acciones
+User New: Nuevo Usuario
+User Edit: Editar Usuario
+Video New: Nuevo Vídeo
+Videos Loader: Carga de Vídeos
+URL Image: URL Imagen
+URL Video: URL Vídeo
+Process Complete Success: Proceso Completado Correctamente
+Video Edition: Edicion de Video
+Active Videos: Videos Activos
+Reprodcutions: Numero de reproducciones en total
+Total User: Total de Usuarios
+Access error: Datos de acceso incorrectos

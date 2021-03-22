@@ -1,0 +1,50 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-info">
+                    <h4 class="card-title ">{{ title|trans }}</h4>
+                    <div class="td-actions text-right">
+                        <button class="btn btn-warning" onclick="window.location='{{ path('admin_user_new') }}'">{{ 'User New'|trans }}</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="text-info">
+                                <th>ID</th>
+                                <th>{{ 'Name'|trans }}</th>
+                                <th>{{ 'Last Name'|trans }}</th>
+                                <th>{{ 'Mother Last Name'|trans }}</th>
+                                <th>{{ 'Email'| trans }}</th>
+                                <th>{{ 'Actions'|trans }}</th>
+                            </thead>
+                            <tbody>
+                            {% for user in users %}
+                            <tr>
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.name }}</td>
+                                <td>{{ user.lastName }}</td>
+                                <td>{{ user.motherLastName }}</td>
+                                <td>{{ user.email }}</td>
+                                <td class="td-actions text-left">
+                                    <button type="button" rel="tooltip" class="btn btn-success" onclick="window.location='{{ path('admin_user_edit', { user: user.id }) }}'">
+                                        <i class="material-icons">edit</i>
+                                    </button>
+                                    <button type="button" rel="tooltip" class="btn btn-danger" onclick="window.location='{{ path('admin_user_delete', { user: user.id }) }}'">
+                                        <i class="material-icons">close</i>
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

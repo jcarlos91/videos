@@ -1,3 +1,15 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+index:
+    path: /
+    controller: App\Controller\DefaultController::index
+
+index_video_play:
+    path: /video/{video}/detail
+    controller: App\Controller\DefaultController::play
+
+index_video_add_reproduction:
+    path: /video/add/reproduction
+    controller: App\Controller\DefaultController:addReproduction
+
+admin_register_user:
+    path: /admin/register
+    controller: App\Controller\RegistrationController:register

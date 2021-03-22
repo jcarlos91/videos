@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="left" >
+                <video id="myVideo" controls width="800" height="700">
+                    <source src="{{ video.url }}" type="video/mp4" style="width: 50%">
+                    Your browser does not support the video tag.
+                </video>
+                <div style="margin-top: 20px">
+                    <h5>{{ video.title }} - {{ video.description }}</h5>
+                    <h6 id="numReproduction">{{ video.reproductions }} visualizaciones </h6>
+                </div>
+            </div>
+        </div>
+        <div style="width: 400px; height: 500px; overflow-y: scroll; margin-top: 125px">
+            {% for v in videos %}
+                {% if v.id != video.id %}
+                    <a href="{{ path('index_video_play', { video: v.id }) }}" style="text-decoration: none; border-width: 10px">
+                        <div class="row" style="padding: 5px">
+                            <div class="col">
+                                <img src="{{ v.urlImage}}" class="card-img-top">
+                            </div>
+                            <div class="col">
+                                <h6 class="card-title text-dark">{{ v.title}}</h6>
+                                <p class="card-text"><small class="text-lg-start text-muted">{{ v.description }}</small></p>
+{#                                    <p  style="color: #000000"><small class="text-muted">Número de reproducciones {{ v.reproductions }}</small></p>#}
+                            </div>
+                        </div>
+                    </a>
+{#                    <div class="col-md-4">#}
+{#                        <div class="card text-right" style="width: 20rem; margin-top: 5px;">#}
+{#                            <a href="{{ path('index_video_play', { video: v.id }) }}"  style="text-decoration: none">#}
+{#                                <img src="{{ v.urlImage}}" class="card-img-top" alt="..." style="padding: 5px;">#}
+{#                                <div class="card-body">#}
+{#                                    <h6 class="card-title" style="color: #000000">{{ v.title}}</h6>#}
+{#                                    <p class="card-text" style="color: #000000">{{ v.description }}</p>#}
+{#                                    <p class="card-text" style="color: #000000"><small class="text-muted">Número de reproducciones {{ v.reproductions }}</small></p>#}
+{#                                </div>#}
+{#                            </a>#}
+{#                        </div>#}
+{#                    </div>#}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+<div style="margin-top: 100px;"/>
+
+{% endblock %}
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myVideo').on('play', function () {
+                $.ajax({
+                    url: '{{ url('index_video_add_reproduction') }}',
+                    data: {
+                        video: {{ video.id }}
+                    },
+                    success: function(response) {
+                        let text = response + ' visualizaciones';
+                        $('#numReproduction').text(text);
+                    },
+                    error: function() {
+                        console.log("No se ha podido obtener la información");
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

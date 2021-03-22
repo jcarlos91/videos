@@ -1,15 +1,37 @@
 security:
+    encoders:
+        App\Entity\User:
+            algorithm: auto
+
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        users_in_memory: { memory: null }
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
+        admin:
+            pattern: ^/admin
             anonymous: true
             lazy: true
-            provider: users_in_memory
+            form_login:
+                login_path: admin_login
+                check_path: admin_login
+                csrf_token_generator: security.csrf.token_manager
+                use_referer: true
+            guard:
+                authenticators:
+                    - App\Security\AdminLoginFormAuthenticator
+            logout:
+                path: admin_logout
+                # where to redirect after logout
+                target: admin_login
+                # where to redirect after logout
+                # target: app_any_route
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -20,5 +42,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+#        - { path: ^/admin/(?!login)(?!register), roles: [IS_AUTHENTICATED_FULLY, ROLE_ADMIN] }
+        - { path: ^/admin/(?!login)(?!register), roles: [ROLE_ADMIN] }
+        - { path: ^/admin/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(?!admin), roles: [IS_AUTHENTICATED_ANONYMOUSLY,ROLE_USER] }

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+
+{% endblock %}
+{% block body %}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row" >
+                {% if videos|length > 0  %}
+                    {% for video in videos %}
+                        <div class="card" style="width: 25rem; margin: 5px;">
+                            <a href="{{ path('index_video_play', { video: video.id }) }}"  style="text-decoration: none">
+                                <img src="{{ video.urlImage }}" class="card-img-top" alt="..." style="padding: 5px; width: 375px; height: 200px;">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="color: #000000">{{ video.title}}</h5>
+                                    <p class="card-text" style="color: #000000">{{ video.description }}</p>
+                                    <p class="card-text" style="color: #000000"><small class="text-muted">Número de reproducciones {{ video.reproductions }}</small></p>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

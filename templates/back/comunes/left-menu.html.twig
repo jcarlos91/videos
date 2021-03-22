@@ -1,0 +1,23 @@
+{% set route_name = app.request.attributes.get('_route') %}
+<div class="sidebar-wrapper">
+    <ul class="nav">
+        <li {% if route_name == 'admin' %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+            <a class="nav-link" href="{{ path('admin') }}">
+                <i class="material-icons">dashboard</i>
+                <p>Dashboard</p>
+            </a>
+        </li>
+        <li {% if route_name == 'admin_user_list' %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+            <a class="nav-link" href="{{ path('admin_user_list')}}">
+                <i class="material-icons">person</i>
+                <p>Users</p>
+            </a>
+        </li>
+        <li  {% if route_name == 'admin_video_list' or route_name == 'admin_video_new'%} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+            <a class="nav-link" href="{{ path('admin_video_list')}}">
+                <i class="material-icons">video_library</i>
+                <p>Videos</p>
+            </a>
+        </li>
+    </ul>
+</div>

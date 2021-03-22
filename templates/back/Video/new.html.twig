@@ -1,0 +1,62 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-info">
+                    <h4 class="card-title">{{ title|trans }}</h4>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form) }}
+
+                    <h3>Datos </h3>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_label(form.title) }}
+                                {{ form_widget(form.title) }}
+                                {{ form_errors(form.title) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_label(form.description) }}
+                                {{ form_widget(form.description) }}
+                                {{ form_errors(form.description) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ form_label(form.url) }}
+                                {{ form_widget(form.url) }}
+                                {{ form_errors(form.url) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ form_label(form.urlImage) }}
+                                {{ form_widget(form.urlImage) }}
+                                {{ form_errors(form.urlImage) }}
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="text-center" style="margin-top: 10px;">
+                        {{ form_widget(form.save) }}
+                        <button class="btn btn-action" onclick="window.location='{{ path('admin_video_list') }}'"> Regresar</button>
+                    </div>
+                </div>
+                {{ form_errors(form) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
