@@ -1,53 +1,62 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
     <div class="row">
-        <div class="col-md-8">
-            <div class="left" >
-                <video id="myVideo" controls width="800" height="700">
-                    <source src="{{ video.url }}" type="video/mp4" style="width: 50%">
-                    Your browser does not support the video tag.
-                </video>
-                <div style="margin-top: 20px">
-                    <h5>{{ video.title }} - {{ video.description }}</h5>
-                    <h6 id="numReproduction">{{ video.reproductions }} visualizaciones </h6>
-                </div>
+        <div class="card mb-1" style="max-width: 50%">
+            <video id="myVideo" controls class="card-img-top">
+                <source src="{{ video.url }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="card-body">
+                <h4 class="card-title">{{ video.title }} - {{ video.description }}</h4>
+                <p class="card-text" id="numReproduction">{{ video.reproductions }} visualizaciones</p>
             </div>
         </div>
-        <div style="width: 400px; height: 500px; overflow-y: scroll; margin-top: 125px">
+                {#        <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">#}
+{#            <div class="left" >#}
+{#                <div >#}
+{#                    <!-- Copy & Pasted from YouTube -->#}
+{#                    <video id="myVideo" controls width="800" height="500">#}
+{#                        <source src="{{ video.url }}" type="video/mp4">#}
+{#                        Your browser does not support the video tag.#}
+{#                    </video>#}
+{#                </div>#}
+{#                <div>#}
+{#                    <h5>{{ video.title }} - {{ video.description }}</h5>#}
+{#                    <h6 id="numReproduction">{{ video.reproductions }} visualizaciones </h6>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+        <div style="width: 370px; height: 500px; overflow-y: scroll; margin-left: 30px;" class="card">
             {% for v in videos %}
                 {% if v.id != video.id %}
-                    <a href="{{ path('index_video_play', { video: v.id }) }}" style="text-decoration: none; border-width: 10px">
+                    <a href="{{ path('index_video_play', { video: v.id }) }}" style="text-decoration: none; border-width: 10px; border-color: #0f5132;">
                         <div class="row" style="padding: 5px">
                             <div class="col">
                                 <img src="{{ v.urlImage}}" class="card-img-top">
                             </div>
-                            <div class="col">
-                                <h6 class="card-title text-dark">{{ v.title}}</h6>
-                                <p class="card-text"><small class="text-lg-start text-muted">{{ v.description }}</small></p>
-{#                                    <p  style="color: #000000"><small class="text-muted">Número de reproducciones {{ v.reproductions }}</small></p>#}
+                            <div class="col" style="border-width: 2px">
+                                <div class="row">
+                                    <h6 class="card-title text-dark">{{ v.title}}</h6>
+                                </div>
+                                <div class="row">
+                                    <p class="card-text"><small class="text-lg-start text-muted">{{ v.description }}</small></p>
+                                </div>
+                                <div class="row">
+                                    <p class="card-text" style="color: #000000"><small class="text-muted">Número de reproducciones {{ v.reproductions }}</small></p>
+                                </div>
                             </div>
                         </div>
                     </a>
-{#                    <div class="col-md-4">#}
-{#                        <div class="card text-right" style="width: 20rem; margin-top: 5px;">#}
-{#                            <a href="{{ path('index_video_play', { video: v.id }) }}"  style="text-decoration: none">#}
-{#                                <img src="{{ v.urlImage}}" class="card-img-top" alt="..." style="padding: 5px;">#}
-{#                                <div class="card-body">#}
-{#                                    <h6 class="card-title" style="color: #000000">{{ v.title}}</h6>#}
-{#                                    <p class="card-text" style="color: #000000">{{ v.description }}</p>#}
-{#                                    <p class="card-text" style="color: #000000"><small class="text-muted">Número de reproducciones {{ v.reproductions }}</small></p>#}
-{#                                </div>#}
-{#                            </a>#}
+{#                    <div class="card" style="width: 20rem;">#}
+{#                        <img class="card-img-top" src="https://images.unsplash.com/photo-1517303650219-83c8b1788c4c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=bd4c162d27ea317ff8c67255e955e3c8&auto=format&fit=crop&w=2691&q=80" rel="nofollow" alt="Card image cap">#}
+{#                        <div class="card-body">#}
+{#                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>#}
 {#                        </div>#}
 {#                    </div>#}
                 {% endif %}
             {% endfor %}
         </div>
     </div>
-
-<div style="margin-top: 100px;"/>
-
 {% endblock %}
 {% block javascripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

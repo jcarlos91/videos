@@ -11,6 +11,7 @@ use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
@@ -70,5 +71,26 @@ class DefaultController extends AbstractController
             $em->getConnection()->rollback();
             return $e->getMessage();
         }
+    }
+
+
+    /**
+     * @Route("/search", name="index_search")
+     * @param Request $request
+     * @return Response
+     */
+    public function search(Request $request){
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $data = $request->request->all();
+        if(!empty($data)) {
+            $search = $em->getRepository('App\Entity\Video')->search($data['search']);
+        }else{
+            $search = $em->getRepository('App\Entity\Video')->findBy(['deleted' => 0], ['id' => 'DESC']);
+        }
+
+        return $this->render('default/index.html.twig', [
+            'videos' => $search
+        ]);
     }
 }

@@ -51,4 +51,23 @@ class VideoRepository extends ServiceEntityRepository
 
         return $q->getQuery()->getSingleScalarResult();
     }
+
+    public function search($data){
+        $q = $this->createQueryBuilder('v');
+        $q
+            ->where('v.deleted = 0')
+        ;
+
+        if(!empty($data)){
+            $q
+                ->andWhere('v.title like :title')
+                ->andWhere('v.description like :title')
+//                ->andWhere($q->expr()->like('v.title', ':title'))
+//                ->andWhere($q->expr()->like('v.description', ':title'))
+                ->setParameter('title','%'.$data.'%')
+            ;
+        }
+
+        return $q->getQuery()->getResult();
+    }
 }

@@ -26,7 +26,7 @@ class VideoController extends AbstractController
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var Video $video */
-        $videos = $em->getRepository('App\Entity\Video')->findBy(['deleted' => 0]);
+        $videos = $em->getRepository('App\Entity\Video')->findBy(['deleted' => 0], ['title' => 'ASC']);
 
         return $this->render('back/Video/list.html.twig', [
             'videos' => $videos,

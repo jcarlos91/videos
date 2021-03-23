@@ -27,7 +27,7 @@ class UserController extends AbstractController
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var User $user */
-        $user = $em->getRepository('App\Entity\User')->findBy(['deleted' => 0]);
+        $user = $em->getRepository('App\Entity\User')->findBy(['deleted' => 0], ['name' => 'ASC']);
 
         return $this->render('back/User/list.html.twig', [
             'users' => $user,
